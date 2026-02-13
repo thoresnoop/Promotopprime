@@ -70,13 +70,13 @@
           text-shadow: 0 1px 2px rgba(0,0,0,0.2);
       }
 
-      .date-section {
-          margin-bottom: 25px;
+      .month-section {
+          margin-bottom: 20px;
       }
 
-      .date-header {
+      .month-header {
           background: rgba(255,255,255,0.95);
-          padding: 15px 20px;
+          padding: 18px 20px;
           border-radius: 12px;
           margin-bottom: 12px;
           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -87,15 +87,72 @@
           transition: all 0.3s ease;
       }
 
-      .date-header:hover {
+      .month-header:hover {
           background: white;
           transform: translateY(-2px);
           box-shadow: 0 6px 12px rgba(0,0,0,0.15);
       }
 
+      .month-title {
+          font-weight: 700;
+          font-size: 20px;
+          color: #1a1a1a;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+      }
+
+      .month-icon {
+          font-size: 24px;
+      }
+
+      .arrow {
+          transition: transform 0.3s ease;
+          font-size: 20px;
+          color: #667eea;
+      }
+
+      .arrow.rotated {
+          transform: rotate(180deg);
+      }
+
+      .dates-container {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease;
+          padding-left: 15px;
+      }
+
+      .dates-container.open {
+          max-height: 5000px;
+      }
+
+      .date-section {
+          margin-bottom: 15px;
+      }
+
+      .date-header {
+          background: rgba(255,255,255,0.9);
+          padding: 14px 18px;
+          border-radius: 10px;
+          margin-bottom: 10px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: all 0.3s ease;
+      }
+
+      .date-header:hover {
+          background: white;
+          transform: translateX(3px);
+          box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+      }
+
       .date-title {
           font-weight: 600;
-          font-size: 18px;
+          font-size: 16px;
           color: #1a1a1a;
           display: flex;
           align-items: center;
@@ -103,7 +160,7 @@
       }
 
       .date-icon {
-          font-size: 20px;
+          font-size: 18px;
       }
 
       .date-count {
@@ -111,17 +168,20 @@
           color: white;
           padding: 4px 12px;
           border-radius: 20px;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 600;
+          min-width: 30px;
+          text-align: center;
       }
 
       .links {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 10px;
           max-height: 0;
           overflow: hidden;
           transition: max-height 0.4s ease;
+          padding-left: 15px;
       }
 
       .links.open {
@@ -130,18 +190,17 @@
 
       .link-card {
           background: white;
-          padding: 18px;
-          border-radius: 12px;
+          padding: 16px;
+          border-radius: 10px;
           text-decoration: none;
           color: #333;
           transition: all 0.3s ease;
           box-shadow: 0 2px 4px rgba(0,0,0,0.08);
           display: flex;
           align-items: center;
-          gap: 15px;
+          gap: 12px;
           position: relative;
           overflow: hidden;
-          margin-left: 15px;
       }
 
       .link-card:hover {
@@ -160,7 +219,7 @@
       }
 
       .link-icon {
-          font-size: 28px;
+          font-size: 26px;
           flex-shrink: 0;
       }
 
@@ -171,17 +230,8 @@
 
       .link-title {
           font-weight: 600;
-          font-size: 16px;
+          font-size: 15px;
           color: #1a1a1a;
-      }
-
-      .arrow {
-          transition: transform 0.3s ease;
-          font-size: 20px;
-      }
-
-      .arrow.rotated {
-          transform: rotate(180deg);
       }
 
       .social-links {
@@ -216,6 +266,16 @@
           height: 32px;
       }
 
+      .date-arrow {
+          transition: transform 0.3s ease;
+          font-size: 16px;
+          color: #764ba2;
+      }
+
+      .date-arrow.rotated {
+          transform: rotate(180deg);
+      }
+
       @media (max-width: 480px) {
           .profile h1 {
               font-size: 26px;
@@ -226,16 +286,20 @@
               height: 120px;
           }
 
+          .month-title {
+              font-size: 18px;
+          }
+
           .date-title {
-              font-size: 16px;
+              font-size: 15px;
           }
 
           .link-title {
-              font-size: 15px;
+              font-size: 14px;
           }
           
           .link-icon {
-              font-size: 24px;
+              font-size: 22px;
           }
 
           .social-icon {
@@ -253,168 +317,264 @@
 <body>
   <div class="container">
       <div class="profile">
-          <img src="https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/176673217/g3MMUDqmSKovCSVb.jpeg?Expires=1772152858&Signature=tzlnqiBXysudsyg00mlve8s3j41ITeDIwmQIpGd5SHRUuUTgLOjrLkEDpjp8bvBikku1F16mmHlsA4WcNJpT2p5OQ3p1Cs-MjzWlPTJRRFrkMSvEJmLz7HDTblDz0Sq4amg-m~4sONIwHP-fezKhHO4RAubTg0Fem3xHubJAViUT0va2aJ5C8pIlDkXtgtApToemCWFUnskveysjI~Ye-fkZ02XSxIJz6~VkaafRh0nIe8dhRvSFRzBl9DkFbykrNy5QdzYb~Zv9qBDH0U4MHSEk-y2n22NYYjYhZWRAh6mzP2RRJsMroPSfagnq328MmTGJIe2HhrYhGFFa8epblg__&Key-Pair-Id=K3USGZIKWMDCSX" alt="Promo Top Prime" class="profile-image" id="profileImage">
-          <h1 id="profileName">Promo Top Prime</h1>
-          <p id="profileBio">✨ Promoções Imperdíveis ✨</p>
+          <img src="https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/176673217/g3MMUDqmSKovCSVb.jpeg?Expires=1772152858&Signature=tzlnqiBXysudsyg00mlve8s3j41ITeDIwmQIpGd5SHRUuUTgLOjrLkEDpjp8bvBikku1F16mmHlsA4WcNJpT2p5OQ3p1Cs-MjzWlPTJRRFrkMSvEJmLz7HDTblDz0Sq4amg-m~4sONIwHP-fezKhHO4RAubTg0Fem3xHubJAViUT0va2aJ5C8pIlDkXtgtApToemCWFUnskveysjI~Ye-fkZ02XSxIJz6~VkaafRh0nIe8dhRvSFRzBl9DkFbykrNy5QdzYb~Zv9qBDH0U4MHSEk-y2n22NYYjYhZWRAh6mzP2RRJsMroPSfagnq328MmTGJIe2HhrYhGFFa8epblg__&Key-Pair-Id=K3USGZIKWMDCSX" alt="Promo Top Prime" class="profile-image">
+          <h1>Promo Top Prime</h1>
+          <p>✨ Promoções Imperdíveis ✨</p>
       </div>
 
-      <div id="datesContainer">
-          <!-- As seções de datas serão geradas automaticamente aqui -->
+      <div id="monthsContainer">
+          <!-- Os meses serão gerados automaticamente aqui -->
       </div>
 
-      <div class="social-links" id="socialContainer">
-          <!-- As redes sociais serão geradas automaticamente aqui -->
+      <div class="social-links">
+          <a href="https://instagram.com/promotopprime" class="social-icon" title="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg fill="url(#instagram-gradient)" viewBox="0 0 24 24"><defs><linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#FD5949;stop-opacity:1" /><stop offset="50%" style="stop-color:#D6249F;stop-opacity:1" /><stop offset="100%" style="stop-color:#285AEB;stop-opacity:1" /></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://tiktok.com/@promotopprime" class="social-icon" title="TikTok" target="_blank" rel="noopener noreferrer">
+              <svg fill="#000000" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+          </a>
+          <a href="https://chat.whatsapp.com/LCA0hZV57vWGA6S33CLQwX" class="social-icon" title="Grupo WhatsApp" target="_blank" rel="noopener noreferrer">
+              <svg fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          </a>
       </div>
   </div>
 
   <script>
       // ============================================
-      // 📝 EDITE AQUI - SUAS INFORMAÇÕES
-      // ============================================
-      
-      const perfil = {
-          nome: "Promo Top Prime",
-          bio: "✨ Promoções Imperdíveis ✨",
-          foto: "https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/176673217/g3MMUDqmSKovCSVb.jpeg?Expires=1772152858&Signature=tzlnqiBXysudsyg00mlve8s3j41ITeDIwmQIpGd5SHRUuUTgLOjrLkEDpjp8bvBikku1F16mmHlsA4WcNJpT2p5OQ3p1Cs-MjzWlPTJRRFrkMSvEJmLz7HDTblDz0Sq4amg-m~4sONIwHP-fezKhHO4RAubTg0Fem3xHubJAViUT0va2aJ5C8pIlDkXtgtApToemCWFUnskveysjI~Ye-fkZ02XSxIJz6~VkaafRh0nIe8dhRvSFRzBl9DkFbykrNy5QdzYb~Zv9qBDH0U4MHSEk-y2n22NYYjYhZWRAh6mzP2RRJsMroPSfagnq328MmTGJIe2HhrYhGFFa8epblg__&Key-Pair-Id=K3USGZIKWMDCSX"
-      };
-
-      // ============================================
-      // 🔗 COLE SEUS LINKS AQUI - FORMATO SIMPLES
+      // 📝 EDITE AQUI - SEUS LINKS DE AFILIADO
       // Formato: "emoji | Título do Produto | link"
       // ============================================
       
       const promocoesPorData = {
+          // FEVEREIRO 2026
           "12/02/2026": [
-              "🔥 | Tênis Nike Air Max 50% OFF | https://amzn.to/link1",
-              "👟 | Adidas Ultraboost Promoção | https://amzn.to/link2",
-              "⚡ | Smartwatch Galaxy Watch | https://shopee.com/link3"
+              "🔥 | Tênis Nike Air Max 50% OFF | https://amzn.to/exemplo1",
+              "👟 | Adidas Ultraboost Promoção | https://amzn.to/exemplo2"
           ],
+          "13/02/2026": [],
+          "14/02/2026": [],
+          "15/02/2026": [],
+          "16/02/2026": [],
+          "17/02/2026": [],
+          "18/02/2026": [],
+          "19/02/2026": [],
+          "20/02/2026": [],
+          "21/02/2026": [],
+          "22/02/2026": [],
+          "23/02/2026": [],
+          "24/02/2026": [],
+          "25/02/2026": [],
+          "26/02/2026": [],
+          "27/02/2026": [],
+          "28/02/2026": [],
           
-          "11/02/2026": [
-              "🎁 | Fone Bluetooth JBL | https://amzn.to/link4",
-              "📱 | Capinha iPhone 15 | https://shopee.com/link5",
-              "💻 | Mouse Gamer RGB | https://amzn.to/link6",
-              "🎮 | Controle PS5 | https://amzn.to/link7"
-          ],
+          // MARÇO 2026
+          "01/03/2026": [], "02/03/2026": [], "03/03/2026": [], "04/03/2026": [], "05/03/2026": [],
+          "06/03/2026": [], "07/03/2026": [], "08/03/2026": [], "09/03/2026": [], "10/03/2026": [],
+          "11/03/2026": [], "12/03/2026": [], "13/03/2026": [], "14/03/2026": [], "15/03/2026": [],
+          "16/03/2026": [], "17/03/2026": [], "18/03/2026": [], "19/03/2026": [], "20/03/2026": [],
+          "21/03/2026": [], "22/03/2026": [], "23/03/2026": [], "24/03/2026": [], "25/03/2026": [],
+          "26/03/2026": [], "27/03/2026": [], "28/03/2026": [], "29/03/2026": [], "30/03/2026": [],
+          "31/03/2026": [],
           
-          "10/02/2026": [
-              "👕 | Camiseta Premium | https://shopee.com/link8",
-              "🕶️ | Óculos de Sol Ray-Ban | https://amzn.to/link9"
-          ]
+          // ABRIL 2026
+          "01/04/2026": [], "02/04/2026": [], "03/04/2026": [], "04/04/2026": [], "05/04/2026": [],
+          "06/04/2026": [], "07/04/2026": [], "08/04/2026": [], "09/04/2026": [], "10/04/2026": [],
+          "11/04/2026": [], "12/04/2026": [], "13/04/2026": [], "14/04/2026": [], "15/04/2026": [],
+          "16/04/2026": [], "17/04/2026": [], "18/04/2026": [], "19/04/2026": [], "20/04/2026": [],
+          "21/04/2026": [], "22/04/2026": [], "23/04/2026": [], "24/04/2026": [], "25/04/2026": [],
+          "26/04/2026": [], "27/04/2026": [], "28/04/2026": [], "29/04/2026": [], "30/04/2026": [],
+          
+          // MAIO 2026
+          "01/05/2026": [], "02/05/2026": [], "03/05/2026": [], "04/05/2026": [], "05/05/2026": [],
+          "06/05/2026": [], "07/05/2026": [], "08/05/2026": [], "09/05/2026": [], "10/05/2026": [],
+          "11/05/2026": [], "12/05/2026": [], "13/05/2026": [], "14/05/2026": [], "15/05/2026": [],
+          "16/05/2026": [], "17/05/2026": [], "18/05/2026": [], "19/05/2026": [], "20/05/2026": [],
+          "21/05/2026": [], "22/05/2026": [], "23/05/2026": [], "24/05/2026": [], "25/05/2026": [],
+          "26/05/2026": [], "27/05/2026": [], "28/05/2026": [], "29/05/2026": [], "30/05/2026": [],
+          "31/05/2026": [],
+          
+          // JUNHO 2026
+          "01/06/2026": [], "02/06/2026": [], "03/06/2026": [], "04/06/2026": [], "05/06/2026": [],
+          "06/06/2026": [], "07/06/2026": [], "08/06/2026": [], "09/06/2026": [], "10/06/2026": [],
+          "11/06/2026": [], "12/06/2026": [], "13/06/2026": [], "14/06/2026": [], "15/06/2026": [],
+          "16/06/2026": [], "17/06/2026": [], "18/06/2026": [], "19/06/2026": [], "20/06/2026": [],
+          "21/06/2026": [], "22/06/2026": [], "23/06/2026": [], "24/06/2026": [], "25/06/2026": [],
+          "26/06/2026": [], "27/06/2026": [], "28/06/2026": [], "29/06/2026": [], "30/06/2026": [],
+          
+          // JULHO 2026
+          "01/07/2026": [], "02/07/2026": [], "03/07/2026": [], "04/07/2026": [], "05/07/2026": [],
+          "06/07/2026": [], "07/07/2026": [], "08/07/2026": [], "09/07/2026": [], "10/07/2026": [],
+          "11/07/2026": [], "12/07/2026": [], "13/07/2026": [], "14/07/2026": [], "15/07/2026": [],
+          "16/07/2026": [], "17/07/2026": [], "18/07/2026": [], "19/07/2026": [], "20/07/2026": [],
+          "21/07/2026": [], "22/07/2026": [], "23/07/2026": [], "24/07/2026": [], "25/07/2026": [],
+          "26/07/2026": [], "27/07/2026": [], "28/07/2026": [], "29/07/2026": [], "30/07/2026": [],
+          "31/07/2026": [],
+          
+          // AGOSTO 2026
+          "01/08/2026": [], "02/08/2026": [], "03/08/2026": [], "04/08/2026": [], "05/08/2026": [],
+          "06/08/2026": [], "07/08/2026": [], "08/08/2026": [], "09/08/2026": [], "10/08/2026": [],
+          "11/08/2026": [], "12/08/2026": [], "13/08/2026": [], "14/08/2026": [], "15/08/2026": [],
+          "16/08/2026": [], "17/08/2026": [], "18/08/2026": [], "19/08/2026": [], "20/08/2026": [],
+          "21/08/2026": [], "22/08/2026": [], "23/08/2026": [], "24/08/2026": [], "25/08/2026": [],
+          "26/08/2026": [], "27/08/2026": [], "28/08/2026": [], "29/08/2026": [], "30/08/2026": [],
+          "31/08/2026": [],
+          
+          // SETEMBRO 2026
+          "01/09/2026": [], "02/09/2026": [], "03/09/2026": [], "04/09/2026": [], "05/09/2026": [],
+          "06/09/2026": [], "07/09/2026": [], "08/09/2026": [], "09/09/2026": [], "10/09/2026": [],
+          "11/09/2026": [], "12/09/2026": [], "13/09/2026": [], "14/09/2026": [], "15/09/2026": [],
+          "16/09/2026": [], "17/09/2026": [], "18/09/2026": [], "19/09/2026": [], "20/09/2026": [],
+          "21/09/2026": [], "22/09/2026": [], "23/09/2026": [], "24/09/2026": [], "25/09/2026": [],
+          "26/09/2026": [], "27/09/2026": [], "28/09/2026": [], "29/09/2026": [], "30/09/2026": [],
+          
+          // OUTUBRO 2026
+          "01/10/2026": [], "02/10/2026": [], "03/10/2026": [], "04/10/2026": [], "05/10/2026": [],
+          "06/10/2026": [], "07/10/2026": [], "08/10/2026": [], "09/10/2026": [], "10/10/2026": [],
+          "11/10/2026": [], "12/10/2026": [], "13/10/2026": [], "14/10/2026": [], "15/10/2026": [],
+          "16/10/2026": [], "17/10/2026": [], "18/10/2026": [], "19/10/2026": [], "20/10/2026": [],
+          "21/10/2026": [], "22/10/2026": [], "23/10/2026": [], "24/10/2026": [], "25/10/2026": [],
+          "26/10/2026": [], "27/10/2026": [], "28/10/2026": [], "29/10/2026": [], "30/10/2026": [],
+          "31/10/2026": [],
+          
+          // NOVEMBRO 2026
+          "01/11/2026": [], "02/11/2026": [], "03/11/2026": [], "04/11/2026": [], "05/11/2026": [],
+          "06/11/2026": [], "07/11/2026": [], "08/11/2026": [], "09/11/2026": [], "10/11/2026": [],
+          "11/11/2026": [], "12/11/2026": [], "13/11/2026": [], "14/11/2026": [], "15/11/2026": [],
+          "16/11/2026": [], "17/11/2026": [], "18/11/2026": [], "19/11/2026": [], "20/11/2026": [],
+          "21/11/2026": [], "22/11/2026": [], "23/11/2026": [], "24/11/2026": [], "25/11/2026": [],
+          "26/11/2026": [], "27/11/2026": [], "28/11/2026": [], "29/11/2026": [], "30/11/2026": [],
+          
+          // DEZEMBRO 2026
+          "01/12/2026": [], "02/12/2026": [], "03/12/2026": [], "04/12/2026": [], "05/12/2026": [],
+          "06/12/2026": [], "07/12/2026": [], "08/12/2026": [], "09/12/2026": [], "10/12/2026": [],
+          "11/12/2026": [], "12/12/2026": [], "13/12/2026": [], "14/12/2026": [], "15/12/2026": [],
+          "16/12/2026": [], "17/12/2026": [], "18/12/2026": [], "19/12/2026": [], "20/12/2026": [],
+          "21/12/2026": [], "22/12/2026": [], "23/12/2026": [], "24/12/2026": [], "25/12/2026": [],
+          "26/12/2026": [], "27/12/2026": [], "28/12/2026": [], "29/12/2026": [], "30/12/2026": [],
+          "31/12/2026": []
       };
-
-      // ============================================
-      // 📱 SUAS REDES SOCIAIS
-      // ============================================
-      
-      const redesSociais = [
-          { 
-              nome: "Instagram", 
-              link: "https://instagram.com/promotopprime",
-              svg: '<svg fill="url(#instagram-gradient)" viewBox="0 0 24 24"><defs><linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#FD5949;stop-opacity:1" /><stop offset="50%" style="stop-color:#D6249F;stop-opacity:1" /><stop offset="100%" style="stop-color:#285AEB;stop-opacity:1" /></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>'
-          },
-          { 
-              nome: "TikTok", 
-              link: "https://tiktok.com/@promotopprime",
-              svg: '<svg fill="#000000" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>'
-          },
-          { 
-              nome: "Grupo WhatsApp", 
-              link: "https://chat.whatsapp.com/LCA0hZV57vWGA6S33CLQwX",
-              svg: '<svg fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>'
-          }
-      ];
 
       // ============================================
       // ⚙️ NÃO MEXA DAQUI PRA BAIXO
       // ============================================
 
-      // Atualizar perfil
-      document.getElementById('profileName').textContent = perfil.nome;
-      document.getElementById('profileBio').textContent = perfil.bio;
-      document.getElementById('profileImage').src = perfil.foto;
+      const meses = {
+          "02": { nome: "Fevereiro 2026", emoji: "💝", dias: 28 },
+          "03": { nome: "Março 2026", emoji: "🌸", dias: 31 },
+          "04": { nome: "Abril 2026", emoji: "🌼", dias: 30 },
+          "05": { nome: "Maio 2026", emoji: "🌺", dias: 31 },
+          "06": { nome: "Junho 2026", emoji: "☀️", dias: 30 },
+          "07": { nome: "Julho 2026", emoji: "🏖️", dias: 31 },
+          "08": { nome: "Agosto 2026", emoji: "🌻", dias: 31 },
+          "09": { nome: "Setembro 2026", emoji: "🍂", dias: 30 },
+          "10": { nome: "Outubro 2026", emoji: "🎃", dias: 31 },
+          "11": { nome: "Novembro 2026", emoji: "🍁", dias: 30 },
+          "12": { nome: "Dezembro 2026", emoji: "🎄", dias: 31 }
+      };
 
-      // Gerar seções por data
-      const datesContainer = document.getElementById('datesContainer');
-      
-      Object.keys(promocoesPorData).forEach((data, index) => {
-          const promocoes = promocoesPorData[data];
+      const monthsContainer = document.getElementById('monthsContainer');
+
+      Object.keys(meses).forEach(mesNum => {
+          const mes = meses[mesNum];
           
-          // Criar seção de data
-          const dateSection = document.createElement('div');
-          dateSection.className = 'date-section';
+          // Criar seção do mês
+          const monthSection = document.createElement('div');
+          monthSection.className = 'month-section';
           
-          // Criar header da data
-          const dateHeader = document.createElement('div');
-          dateHeader.className = 'date-header';
-          dateHeader.innerHTML = `
-              <div class="date-title">
-                  <span class="date-icon">📅</span>
-                  <span>Promoções postadas ${data}</span>
+          // Criar header do mês
+          const monthHeader = document.createElement('div');
+          monthHeader.className = 'month-header';
+          monthHeader.innerHTML = `
+              <div class="month-title">
+                  <span class="month-icon">${mes.emoji}</span>
+                  <span>${mes.nome}</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 10px;">
-                  <span class="date-count">${promocoes.length}</span>
-                  <span class="arrow">▼</span>
-              </div>
+              <span class="arrow">▼</span>
           `;
           
-          // Criar container de links
-          const linksContainer = document.createElement('div');
-          linksContainer.className = 'links';
-          if (index === 0) linksContainer.classList.add('open'); // Primeira data aberta por padrão
+          // Criar container de datas
+          const datesContainer = document.createElement('div');
+          datesContainer.className = 'dates-container';
           
-          // Adicionar links
-          promocoes.forEach(promo => {
-              const partes = promo.split('|').map(p => p.trim());
-              if (partes.length === 3) {
-                  const [emoji, titulo, link] = partes;
-                  
-                  const linkCard = document.createElement('a');
-                  linkCard.href = link;
-                  linkCard.className = 'link-card';
-                  linkCard.target = '_blank';
-                  linkCard.rel = 'noopener noreferrer';
-                  
-                  linkCard.innerHTML = `
-                      <div class="link-icon">${emoji}</div>
-                      <div class="link-content">
-                          <div class="link-title">${titulo}</div>
-                      </div>
-                  `;
-                  
-                  linksContainer.appendChild(linkCard);
+          // Adicionar todas as datas do mês
+          for (let dia = 1; dia <= mes.dias; dia++) {
+              const diaFormatado = String(dia).padStart(2, '0');
+              const dataCompleta = `${diaFormatado}/${mesNum}/2026`;
+              const promocoes = promocoesPorData[dataCompleta] || [];
+              
+              // Pular datas que já passaram (antes de 12/02/2026)
+              if (mesNum === "02" && dia < 12) continue;
+              
+              // Criar seção da data
+              const dateSection = document.createElement('div');
+              dateSection.className = 'date-section';
+              
+              // Criar header da data
+              const dateHeader = document.createElement('div');
+              dateHeader.className = 'date-header';
+              dateHeader.innerHTML = `
+                  <div class="date-title">
+                      <span class="date-icon">📅</span>
+                      <span>${dataCompleta}</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                      <span class="date-count">${promocoes.length}</span>
+                      <span class="date-arrow">▼</span>
+                  </div>
+              `;
+              
+              // Criar container de links
+              const linksContainer = document.createElement('div');
+              linksContainer.className = 'links';
+              
+              // Adicionar links (se houver)
+              if (promocoes.length > 0) {
+                  promocoes.forEach(promo => {
+                      const partes = promo.split('|').map(p => p.trim());
+                      if (partes.length === 3) {
+                          const [emoji, titulo, link] = partes;
+                          
+                          const linkCard = document.createElement('a');
+                          linkCard.href = link;
+                          linkCard.className = 'link-card';
+                          linkCard.target = '_blank';
+                          linkCard.rel = 'noopener noreferrer';
+                          
+                          linkCard.innerHTML = `
+                              <div class="link-icon">${emoji}</div>
+                              <div class="link-content">
+                                  <div class="link-title">${titulo}</div>
+                              </div>
+                          `;
+                          
+                          linksContainer.appendChild(linkCard);
+                      }
+                  });
               }
-          });
+              
+              // Toggle ao clicar na data
+              dateHeader.addEventListener('click', () => {
+                  linksContainer.classList.toggle('open');
+                  const arrow = dateHeader.querySelector('.date-arrow');
+                  arrow.classList.toggle('rotated');
+              });
+              
+              dateSection.appendChild(dateHeader);
+              dateSection.appendChild(linksContainer);
+              datesContainer.appendChild(dateSection);
+          }
           
-          // Toggle ao clicar no header
-          dateHeader.addEventListener('click', () => {
-              linksContainer.classList.toggle('open');
-              const arrow = dateHeader.querySelector('.arrow');
+          // Toggle ao clicar no mês
+          monthHeader.addEventListener('click', () => {
+              datesContainer.classList.toggle('open');
+              const arrow = monthHeader.querySelector('.arrow');
               arrow.classList.toggle('rotated');
           });
           
-          // Rotacionar seta se já estiver aberto
-          if (index === 0) {
-              dateHeader.querySelector('.arrow').classList.add('rotated');
-          }
-          
-          dateSection.appendChild(dateHeader);
-          dateSection.appendChild(linksContainer);
-          datesContainer.appendChild(dateSection);
-      });
-
-      // Gerar links de redes sociais
-      const socialContainer = document.getElementById('socialContainer');
-      redesSociais.forEach(rede => {
-          const socialLink = document.createElement('a');
-          socialLink.href = rede.link;
-          socialLink.className = 'social-icon';
-          socialLink.title = rede.nome;
-          socialLink.target = '_blank';
-          socialLink.rel = 'noopener noreferrer';
-          socialLink.innerHTML = rede.svg;
-          
-          socialContainer.appendChild(socialLink);
+          monthSection.appendChild(monthHeader);
+          monthSection.appendChild(datesContainer);
+          monthsContainer.appendChild(monthSection);
       });
   </script>
 </body>
